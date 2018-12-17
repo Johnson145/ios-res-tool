@@ -461,7 +461,7 @@ def export_ios(res_path, locale)
 
       $arrays_keys.each { |key|
         arr = lookup_locales(locale, :arrays, key)
-
+        next if not arr
         f.write "\"#{key}\" = (\n"
         arr.each { |value|
           value = export_ios_string(locale, value)
@@ -483,7 +483,7 @@ def export_ios(res_path, locale)
 
       $plurals_keys.each { |key|
         plu = lookup_locales(locale, :plurals, key)
-
+        next if not plu
         f.write "<key>#{key}</key>\n"
         f.write "<dict>\n"
         f.write "    <key>NSStringLocalizedFormatKey</key>\n"
