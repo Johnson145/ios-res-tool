@@ -451,6 +451,38 @@ def export_ios(res_path, locale)
       }
     }
   end
+            
+  # duplicate some pre-defined strings into an additional "InfoPlist.strings" file
+  if not $strings_keys.empty? or not $skip_empty_files
+    strings_path = locale_path + 'InfoPlist.strings'
+    strings_path.delete if strings_path.exist?
+    
+    $oldToNewKey = {
+        "app_name" => "CFBundleDisplayName",
+    }
+    
+    anyInfoPlistContent = false
+    $oldToNewKey.each { |oldKey, newKey|
+        if $strings_keys.include? oldKey
+            anyInfoPlistContent = true
+            break
+        end
+    }
+    
+    if anyInfoPlistContent or not $skip_empty_files
+        File.open(strings_path, 'wb') { |f|
+          f.write "\xef\xbb\xbf"
+
+          $oldToNewKey.each { |oldKey, newKey|
+            if $strings_keys.include? oldKey
+                value = lookup_locales(locale, :strings, oldKey)
+                value = export_ios_string(locale, value)
+                f.write "\"#{newKey}\" = \"#{value}\";\n"
+            end
+          }
+        }
+    end
+  end
 
   if not $arrays_keys.empty?
     arrays_path = locale_path + 'LocalizableArray.strings'
