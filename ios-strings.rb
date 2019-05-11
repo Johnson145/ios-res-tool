@@ -459,6 +459,9 @@ def export_ios(res_path, locale)
     
     $oldToNewKey = {
         "app_name" => "CFBundleDisplayName",
+        "camera_permission_is_required_to" => "NSCameraUsageDescription",
+        "optionally_location_permission_is_required_to" => "NSLocationWhenInUseUsageDescription",
+        "we_need_this_gallery_permission_to" => "NSPhotoLibraryUsageDescription",
     }
     
     anyInfoPlistContent = false
