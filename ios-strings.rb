@@ -462,6 +462,8 @@ def export_ios(res_path, locale)
         "camera_permission_is_required_to" => "NSCameraUsageDescription",
         "optionally_location_permission_is_required_to" => "NSLocationWhenInUseUsageDescription",
         "we_need_this_gallery_permission_to" => "NSPhotoLibraryUsageDescription",
+        "photo_write_permission_is_required_to" => "NSPhotoLibraryAddUsageDescription",
+        "tracking_permission_is_required_to" => "NSUserTrackingUsageDescription",
     }
     
     anyInfoPlistContent = false
